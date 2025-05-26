@@ -1,5 +1,6 @@
 # beeit_devops_2025_leto
 
+# TODO: pridat ukol 1
 ## Martin Dolinský
 Pracujem primárne ako Java developer ale posledné roky skor ako fullstack. 
 
