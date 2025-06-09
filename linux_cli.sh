@@ -40,6 +40,11 @@ create_link() {
         ln "$SOURCE" "$TARGET"
         echo "Vytvoren hard link"
     fi
+
+    if [ $? -ne 0 ]; then
+        echo "Nepodarilo se vytvorit link."
+        exit 1
+    fi
 }
 
 info_user() {
@@ -114,4 +119,9 @@ while getopts "m:l:iugo:h" opt; do
             
     esac
 done
+
+# MAC adresa
+ip link
+# IPv4 a IPv6
+ip a
 
