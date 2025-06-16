@@ -130,3 +130,28 @@ while getopts "m:l:iuUo:h" opt; do
             ;;
     esac
 done
+
+######################################################################################
+# Úkol 6.
+show_network_info() {
+  echo "Síťové informace:"
+  echo "-------------------"
+
+  # Hlavní síťové rozhraní
+  iface=$(ip route | grep default | awk '{print $5}')
+
+  echo "Použité rozhraní: $iface"
+
+  # IP adresy
+  echo "IPv4 adresa: $(ip -4 addr show $iface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')"
+  echo "IPv6 adresa: $(ip -6 addr show $iface | grep -oP '(?<=inet6\s)[\da-f:]+')"
+
+  # MAC adresa
+  echo "MAC adresa: $(cat /sys/class/net/$iface/address)"
+
+  # CIDR rozsah (předpokládá IPv4 + masku)
+  cidr=$(ip -4 addr show $iface | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+/\d+')
+  echo "CIDR rozsah: $cidr"
+
+  echo "-------------------"
+}
