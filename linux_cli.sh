@@ -1,5 +1,42 @@
 #!/bin/bash
 
+<<<<<<< HEAD
+=======
+# ================================================
+# ÚKOL – linux_cli.sh
+# 
+# Zadání:
+# 1. Vypiš, jaký používáme shell
+# 2. Vypiš aktuálního uživatele
+# 3. Vypiš verzi Linuxu (z /etc/os-release)
+# 4. Vypiš IP adresu (IPv4 a IPv6)
+# 5. Vypiš MAC adresu
+# 6. Volitelně: Vypiš CIDR rozsah LAN sítě
+# ================================================
+
+echo "Shell: $SHELL"
+echo "Uživatel: $USER"
+echo ""
+echo "Verze Linuxu:"
+cat /etc/os-release
+
+echo ""
+echo "IP adresa (IPv4):"
+ip -4 addr show | grep inet | grep -v "127.0.0.1"
+
+echo ""
+echo "IP adresa (IPv6):"
+ip -6 addr show | grep inet6 | grep -v "::1"
+
+echo ""
+echo "MAC adresa:"
+ip link | grep ether
+
+echo ""
+echo "CIDR rozsah LAN:"
+ip -4 route show | grep src | awk '{print $1}'
+
+>>>>>>> task3
 # -----------------------------------------
 # Nápověda k použití (-h)
 # -----------------------------------------
