@@ -12,8 +12,7 @@ cp soubor.txt /tmp/
 id -u
 id -g
 chmod o=r
-# tohle jsem teda popravde musela najit
-chmod -h u+x,go= /tmp/sofLink
+chmod u+x,go= /tmp/sofLink
 
 create_directory() {
     if mkdir -p "$1"; then
@@ -90,35 +89,43 @@ EOF
 }
 
 while getopts "m:l:iugo:h" opt; do
-    case {$opt} in
+    case $opt in
         m)
-            create_directory "$OPTARG";;
+            create_directory "$OPTARG"
             exit 0
+            ;;
         l)
-            create_link "$OPTARG";;
+            create_link "$OPTARG"
             exit 0
+            ;;
         i)
-            info_user;;
+            info_user
             exit 0
+            ;;
         u)
-            list_update;;
+            list_update
             exit 0
+            ;;
         g)
-            update_upgrade;;
+            update_upgrade
             exit 0
+            ;;
         o)
             LOG_TO_FILE=true
-            LOG_FILE="$OPTARG";;
-            ecit 0
-        h)
-            print_help;;
+            LOG_FILE="$OPTARG"
             exit 0
+            ;;
+        h)
+            print_help
+            exit 0
+            ;;
         *)
-            echo "Neco se pokazilo. Dej -h pro napovedu";;
+            echo "Neco se pokazilo. Dej -h pro napovedu"
             exit 1
-            
+            ;;
     esac
 done
+
 
 # MAC adresa
 ip link
