@@ -1,7 +1,25 @@
 #!/bin/bash
 
-<<<<<<< HEAD
-=======
+# --- Funkce ---
+processinfo() {
+    echo "PID aktuálního procesu: $$"
+    echo "PID rodičovského procesu: $PPID"
+    PRIORITY=$(ps -o pri= -p $$)
+    echo "Priorita procesu: $PRIORITY"
+    TOTAL_PROCESSES=$(ps -e --no-headers | wc -l)
+    echo "Celkový počet běžících procesů: $TOTAL_PROCESSES"
+}
+
+# --- Hlavní přepínač ---
+case "$1" in
+    processinfo)
+        processinfo
+        ;;
+    *)
+        echo "Použití: $0 processinfo"
+        ;;
+esac
+
 # ================================================
 # ÚKOL – linux_cli.sh
 # 
@@ -24,8 +42,7 @@ echo ""
 echo "IP adresa (IPv4):"
 ip -4 addr show | grep inet | grep -v "127.0.0.1"
 
-echo ""
-echo "IP adresa (IPv6):"
+echo ""echo "IP adresa (IPv6):"
 ip -6 addr show | grep inet6 | grep -v "::1"
 
 echo ""
@@ -36,7 +53,6 @@ echo ""
 echo "CIDR rozsah LAN:"
 ip -4 route show | grep src | awk '{print $1}'
 
->>>>>>> task3
 # -----------------------------------------
 # Nápověda k použití (-h)
 # -----------------------------------------
