@@ -155,3 +155,24 @@ show_network_info() {
 
   echo "-------------------"
 }
+
+######################################################################################
+# Úkol 7.
+
+show_process_info() {
+  echo "Informace o procesu:"
+  echo "------------------------"
+
+  echo "PID aktuálního procesu: $$"
+  echo "PID rodičovského procesu: $PPID"
+  
+  # Priorita (nice value)
+  prio=$(ps -o ni= -p $$)
+  echo "Priorita procesu (nice): $prio"
+
+  # Celkový počet procesů
+  total_procs=$(ps -e --no-headers | wc -l)
+  echo "Celkový počet procesů: $total_procs"
+
+  echo "------------------------"
+}
