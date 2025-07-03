@@ -132,3 +132,13 @@ ip link
 # IPv4 a IPv6
 ip a
 
+# vypsani bezicich konteineru
+docker ps
+# stop bezicich 
+docker stop MY_CONTAINER
+# smazani bezicich konteineru
+docker rm MY_CONTAINER
+# vsechny stazene docjer images
+docker images
+# smazani docker image
+docker rmi MY_IMAGE
