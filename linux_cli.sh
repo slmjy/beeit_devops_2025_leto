@@ -85,17 +85,56 @@ Zkratky:
   -g                 Update a upgrade balicku
   -s                 Zapne logovani do souboru nebo STDOUT
   -h                 Zobrazi napovedu
+  -i                 funkce dockeru
+  -j                 Zobrazi MAC IP adresy
 EOF
 }
 
-while getopts "m:l:iugo:h" opt; do
+docker_action() {
+    ACTION=$1
+    TARGET=$2
+    case "$ACTION" in
+        ps)
+            docker ps
+            ;;
+        stop)
+            docker stop "$TARGET"
+            ;;
+        rm)
+            docker rm "$TARGET"
+            ;;
+        images)
+            docker images
+            ;;
+        rmi)
+            docker rmi "$TARGET"
+            ;;
+        *)
+            echo "Pouziti: -d {ps|stop|rm|images|rmi} [NAME]"
+            exit 1
+            ;;
+    esac
+}
+
+network_info() {
+    echo "MAC adresa"
+    ip link
+    echo "IPv4 a IPv6"
+    ip a
+}
+
+while getopts while getopts "m:l:iu:go::d:jh" opt; do
     case $opt in
         m)
             create_directory "$OPTARG"
             exit 0
             ;;
         l)
-            create_link "$OPTARG"
+            TYPE="$OPTARG"
+            # upraveno s OPTIND
+            SOURCE="${!OPTIND}"
+            TARGET="${!OPTIND+1}"
+            create_link "$TYPE" "$SOURCE" "$TARGET"
             exit 0
             ;;
         i)
@@ -119,6 +158,17 @@ while getopts "m:l:iugo:h" opt; do
             print_help
             exit 0
             ;;
+        d)
+            ACTION="$OPTARG"
+            # ukazuje na dalsi argument
+            NAME="${!OPTIND}"
+            docker_action "$ACTION" "$NAME"
+            exit 0
+            ;;
+        j) 
+            network_info
+            exit 0
+            ;;
         *)
             echo "Neco se pokazilo. Dej -h pro napovedu"
             exit 1
@@ -127,18 +177,13 @@ while getopts "m:l:iugo:h" opt; do
 done
 
 
-# MAC adresa
-ip link
-# IPv4 a IPv6
-ip a
-
-# vypsani bezicich konteineru
-docker ps
-# stop bezicich 
-docker stop MY_CONTAINER
-# smazani bezicich konteineru
-docker rm MY_CONTAINER
-# vsechny stazene docjer images
-docker images
-# smazani docker image
-docker rmi MY_IMAGE
+# # vypsani bezicich konteineru
+# docker ps
+# # stop bezicich 
+# docker stop MY_CONTAINER
+# # smazani bezicich konteineru
+# docker rm MY_CONTAINER
+# # vsechny stazene docjer images
+# docker images
+# # smazani docker image
+# docker rmi MY_IMAGE
