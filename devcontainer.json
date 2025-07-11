@@ -1,0 +1,10 @@
+// aby se cely projekt spustil v docker containeru
+{
+  "name": "Linux CLI Dev Container",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile",
+    // build se bude na zakladu poustet bez testu a produ
+    "target": "base"
+  }
+}

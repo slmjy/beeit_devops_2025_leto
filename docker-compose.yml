@@ -1,0 +1,23 @@
+# 3.8 pro maximum funkci a sirokou podporu
+version: '3.8'
+
+services:
+  # test
+  app-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test
+    container_name: test_container
+    # po skonceni uz se nespusti, at dopadne jakkoliv
+    restart: "no"
+
+  # prod
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    container_name: prod_container
+    # kdyby nahle padl nebo tak, tak at se znovu nahodi
+    restart: "unless-stopped"
