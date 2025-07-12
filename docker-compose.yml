@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  test:
+    build:
+      context: .
+      target: tests
+    image: linux-cli:test
+    container_name: linux-cli-test
+    command: cat /app/test_output.txt
+
+  prod:
+    build:
+      context: .
+      target: production
+    image: linux-cli:prod
+    container_name: linux-cli-prod
+    command: ["./linux_cli.sh"]
