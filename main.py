@@ -1,0 +1,2 @@
+print('Ahoj')
+print('Conflict')
