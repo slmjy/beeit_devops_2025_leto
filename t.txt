@@ -1,0 +1,21 @@
+##Fast forward
+main: A - B
+feature: (B)C - D
+
+Merge FF
+
+A - B - C - D
+----------------
+## 3 Way merge (no fast forward)
+main: A - B - E - F
+feature: (B)C - D
+
+Merge 3 Way
+
+A - B - E - F - Z - C - D
+
+Merge Feature branch to main
+----------------
+
+
+
